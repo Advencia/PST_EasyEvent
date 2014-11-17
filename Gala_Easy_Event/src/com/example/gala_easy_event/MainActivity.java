@@ -1,10 +1,12 @@
 package com.example.gala_easy_event;
 
 import java.util.List;
-
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.widget.EditText;
 import android.widget.Toast;
 
 public class MainActivity extends ListActivity implements FetchDataListener {
@@ -15,7 +17,22 @@ public class MainActivity extends ListActivity implements FetchDataListener {
 	    protected void onCreate(Bundle savedInstanceState) {
 	        super.onCreate(savedInstanceState);       
 	        setContentView(R.layout.activity_main);       
-	        initView();  
+	        initView(); 
+	        
+	      //barre de recherche, filtre
+			EditText myFilter = (EditText) findViewById(R.id.monFiltre);
+			  myFilter.addTextChangedListener(new TextWatcher() {
+			 
+			  public void afterTextChanged(Editable s) {
+			  }
+			 
+			  public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+			  }
+			 
+			  public void onTextChanged(CharSequence s, int start, int before, int count) {
+			  // adapter.getFilter().filter(s.toString());
+			  }
+			  });
 	    }
 	 
 	    private void initView() {
@@ -34,7 +51,8 @@ public class MainActivity extends ListActivity implements FetchDataListener {
 	        // create new adapter
 	        EtudiantAdapter adapter = new EtudiantAdapter(this, data);
 	        // set the adapter to list
-	        setListAdapter(adapter);       
+	        setListAdapter(adapter); 
+	        
 	    }
 	 
 	    @Override
