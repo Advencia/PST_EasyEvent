@@ -1,9 +1,28 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<!-- <android.support.v4.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/swipe"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity" >
+    android:layout_height="match_parent">
  
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+  -->
+  
+    
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+ 
+   <!--  <EditText
+         android:id="@+id/editTxt"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_marginTop="5dp"
+         android:inputType="text"
+         android:hint="@string/filtre"/> -->
+
     <ListView
         android:id="@android:id/list"
         android:layout_width="match_parent"
@@ -11,3 +30,6 @@
     </ListView>
  
 </LinearLayout>
+
+<!-- </ScrollView>
+</android.support.v4.widget.SwipeRefreshLayout> -->

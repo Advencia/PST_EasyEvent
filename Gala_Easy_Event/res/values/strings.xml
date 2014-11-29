@@ -5,4 +5,6 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 	<string name="filtre">Recherche</string>
+	<string name="settings">otpions</string>
+	<string name="Refresh">Reload</string>
 </resources>

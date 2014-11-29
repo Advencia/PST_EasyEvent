@@ -11,10 +11,12 @@
             backward-compatibility can go here.
         -->
     </style>
-
-    <!-- Application theme. -->
-    <style name="AppTheme" parent="AppBaseTheme">
-        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+ 	
+ 	<style name="AppTheme" parent="@android:style/Theme.Holo.Light">
+      <!-- <item name="android:background">@color/background</item>
+       <item name="android:textColor">@color/textColor</item> --> 
+      
     </style>
+   
 
 </resources>
