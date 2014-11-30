@@ -72,7 +72,7 @@ public class EtudiantAdapter extends ArrayAdapter<Etudiant> {
      }
 	
 	/*fonction de filtre utilisé pour la barre de recherche*/
-/*	private class EtudiantFilter extends Filter {
+	private class EtudiantFilter extends Filter {
 		@Override
 		protected FilterResults performFiltering(CharSequence constraint) {
 		    FilterResults results = new FilterResults();
@@ -119,7 +119,7 @@ public class EtudiantAdapter extends ArrayAdapter<Etudiant> {
 		    return filtreEtudiant;
 		}
 		
-	}*/
+	}
 	
 	/*public List<Etudiant> getItemList() {
         return items;

@@ -10,15 +10,15 @@ import android.os.AsyncTask;
 import android.os.Bundle; 
 //import android.os.Handler;
 //import android.support.v4.widget.SwipeRefreshLayout;
-//import android.text.Editable;
-//import android.text.TextWatcher;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 //import android.view.View.OnClickListener;
 //import android.widget.AbsListView;
-//import android.widget.EditText;
+import android.widget.EditText;
 //import android.widget.ListView;
 import android.widget.Toast;
 
@@ -56,6 +56,7 @@ public class MainActivity extends ListActivity implements FetchDataListener/*, S
 	            }
 	        }, 5000);  */
 	        
+	        /***** test swipe refresh *****/
 	   /*     final SwipeRefreshLayout swipeView = (SwipeRefreshLayout) findViewById(R.id.swipe);
 	        swipeView.setEnabled(true);
 	        ListView lView = (ListView) findViewById(android.R.id.list);
@@ -90,9 +91,9 @@ public class MainActivity extends ListActivity implements FetchDataListener/*, S
 	            }
 	        });
 	        */
-	        
+	         
 		    /****Barre de recherche *****/
-		/*    EditText editTxt = (EditText) findViewById(R.id.editTxt);
+		    EditText editTxt = (EditText) findViewById(R.id.editTxt);
 	        editTxt.addTextChangedListener(new TextWatcher() {
 	            final EtudiantAdapter adp = new EtudiantAdapter(context, items);
 	            @Override
@@ -111,7 +112,7 @@ public class MainActivity extends ListActivity implements FetchDataListener/*, S
 	            public void afterTextChanged(Editable s) {
 	            	
 	            }
-	        });*/
+	        });
 
 	    }
 	   

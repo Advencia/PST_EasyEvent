@@ -22,7 +22,13 @@
          android:layout_marginTop="5dp"
          android:inputType="text"
          android:hint="@string/filtre"/> -->
-
+<EditText
+         android:id="@+id/editTxt"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_marginTop="5dp"
+         android:inputType="text"
+         android:hint="@string/filtre"/>
     <ListView
         android:id="@android:id/list"
         android:layout_width="match_parent"
