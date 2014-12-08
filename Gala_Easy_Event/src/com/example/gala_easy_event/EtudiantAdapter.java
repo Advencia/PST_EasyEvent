@@ -1,8 +1,9 @@
 package com.example.gala_easy_event;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Locale;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ public class EtudiantAdapter extends ArrayAdapter<Etudiant> {
 	public EtudiantAdapter(Context context, List<Etudiant> items) {
 		super(context, R.layout.app_custom_list, items);
 		this.items = items;
+		
 	}
 
 	/*recupere le nombre d'item*/
@@ -30,7 +32,7 @@ public class EtudiantAdapter extends ArrayAdapter<Etudiant> {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		View v = convertView;
-
+		//v.setOnLongClickListener();
 		if (v == null) {
 			LayoutInflater li = LayoutInflater.from(getContext());
 			v = li.inflate(R.layout.app_custom_list, null);
@@ -59,9 +61,7 @@ public class EtudiantAdapter extends ArrayAdapter<Etudiant> {
 			if (prevente != null) {
 				prevente.setText(app.getPrevente());
 			}
-
 		}
-
 		return v;
 	}
 	
@@ -71,7 +71,7 @@ public class EtudiantAdapter extends ArrayAdapter<Etudiant> {
         notifyDataSetChanged();
      }
 	
-	/*fonction de filtre utilisé pour la barre de recherche*/
+	/*****fonction de filtre utilisé pour la barre de recherche*****/
 	private class EtudiantFilter extends Filter {
 		@Override
 		protected FilterResults performFiltering(CharSequence constraint) {
@@ -80,7 +80,7 @@ public class EtudiantAdapter extends ArrayAdapter<Etudiant> {
 		    // Si il n'y a rien dans le filtre on renvoi toute la liste
 		    if (constraint == null || constraint.length() == 0) {
 		        results.values = items;
-		        results.count = items.size();
+		        results.count = items.size(); 
 		    }
 		    
 		    else {
@@ -113,20 +113,19 @@ public class EtudiantAdapter extends ArrayAdapter<Etudiant> {
 		
 		
 		public Filter getFilter() {
-		    if (filtreEtudiant == null)
+		    if (filtreEtudiant == null){ Log.d("var2", "filtre ");
 		        filtreEtudiant = new EtudiantFilter();
-		     
+		    }
 		    return filtreEtudiant;
-		}
-		
+		}		
 	}
 	
-	/*public List<Etudiant> getItemList() {
+	public List<Etudiant> getItemList() {
         return items;
     }
  
     public void setItemList(List<Etudiant> items) {
         this.items = items;
-    }*/
+    }
 
 }
