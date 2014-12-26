@@ -3,6 +3,7 @@ package com.example.gala_easy_event;
 import java.io.InterruptedIOException;
 import java.util.List;
 
+
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
@@ -12,6 +13,7 @@ import android.os.AsyncTask;
 import android.os.Bundle; 
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -43,8 +45,27 @@ public class MainActivity extends ListActivity implements FetchDataListener {
 	    @Override
 	    protected void onCreate(Bundle savedInstanceState) {
 	        super.onCreate(savedInstanceState);       
-	        setContentView(R.layout.activity_main);       
+	        setContentView(R.layout.activity_main);     
+	        ListView listView = (ListView) findViewById(android.R.id.list);
 	        initView();
+	        
+	        //pull refresh 
+	        final SwipeRefreshLayout swipeContain = (SwipeRefreshLayout) findViewById(R.id.swipe);
+	        // Setup refresh listener which triggers new data loading
+	        swipeContain.setOnRefreshListener(new OnRefreshListener() {
+	            @Override
+	            public void onRefresh() {
+	            	refreshView();
+	                swipeContain.setRefreshing(false);
+	                Log.d("var1", "swipe");
+	            } 
+	        });
+	        // Configure the refreshing colors
+	        swipeContain.setColorSchemeResources(android.R.color.holo_blue_bright, 
+	                android.R.color.holo_purple, 
+	                android.R.color.holo_blue_light, 
+	                android.R.color.holo_red_light);	
+	    
 	         
 		    /****Barre de recherche *****/
 		    EditText editTxt = (EditText) findViewById(R.id.editTxt);
@@ -69,7 +90,7 @@ public class MainActivity extends ListActivity implements FetchDataListener {
 	        });
 	        
 	        /*********Supprimer un item**********/
-	        OnItemLongClickListener itemLongListener = new OnItemLongClickListener() {
+	     /*   OnItemLongClickListener itemLongListener = new OnItemLongClickListener() {
 	            @Override
 	            public boolean onItemLongClick(AdapterView<?> parent, View v, int position, long rowid) {
 	            	object_selected = (Etudiant) parent.getItemAtPosition(position);
@@ -81,10 +102,13 @@ public class MainActivity extends ListActivity implements FetchDataListener {
 	                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {	                    
 	                    @Override
 	                    public void onClick(DialogInterface dialog, int which) {
-	                       
+	                       //suppression local
 	                        adapter.remove(object_selected);
 	                        adapter.notifyDataSetChanged();
-	               
+	                       
+	                       //suppression serveur
+	                        object_selected.getEmail(); //on récupère l'email pr faire correspondre a la db ds le php
+	                        deleteView();
 	                        Toast.makeText(getApplicationContext()," has been removed", Toast.LENGTH_SHORT).show();
 	                    }
 	                });
@@ -99,14 +123,34 @@ public class MainActivity extends ListActivity implements FetchDataListener {
 	                return true;
 	            }
 	        };
-	        getListView().setOnItemLongClickListener(itemLongListener);
+	        getListView().setOnItemLongClickListener(itemLongListener);*/
+	        
+	        /************************************/
+	       ListView lv = getListView();
+	        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+	            @Override
+	            public void onItemClick(AdapterView<?> av, View v, int pos, long id) {
+	            	object_selected = (Etudiant) av.getItemAtPosition(pos);
+	            	object_selected.getEmail();
+	                onClickDoSomething(v);
+	            }
+	            
+	        });
+	        
 	}	    
 	    
 	    /******CLick on item********/	    
 	    public void onClickDoSomething(View view) {
-	    	Toast toast = Toast.makeText(MainActivity.this, "Essai de Toast", Toast.LENGTH_LONG);
-	        toast.show();
-	    	}
+	    	//deleteView();
+	    	//adapter.remove(object_selected);
+            //adapter.notifyDataSetChanged();
+            
+           //suppression serveur
+            
+            //String email = object_selected.setEmail(email); //on récupère l'email pr faire correspondre a la db ds le php
+            deleteView();
+            Toast.makeText(getApplicationContext()," has been removed", Toast.LENGTH_SHORT).show();
+	    	}	    
 	    
 	    /*********************/
 	    private void initView() {
@@ -115,6 +159,18 @@ public class MainActivity extends ListActivity implements FetchDataListener {
 	        String url = "http://10.0.2.2/etudiant.php";
 	        FetchDataTask task = new FetchDataTask(this);
 	        task.execute(url);
+	    }
+	    
+	    private void refreshView() {
+	    	String url = "http://10.0.2.2/etudiant.php";
+	        FetchDataTask task = new FetchDataTask(this);
+	        task.execute(url);
+	    }
+	    private void deleteView() {
+	    	DeleteDataTask delete = new DeleteDataTask(object_selected);
+	        delete.execute("http://10.0.2.2/delete.php");
+	    	Toast toast = Toast.makeText(MainActivity.this, "suppression réussi", Toast.LENGTH_LONG);
+	        toast.show();
 	    }
 	     
 	    @Override
@@ -136,7 +192,7 @@ public class MainActivity extends ListActivity implements FetchDataListener {
 	        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();       
 	    }
 	    
-	    @Override
+	 /*   @Override
 	    public boolean onCreateOptionsMenu(Menu menu) {
 	      MenuInflater inflater = getMenuInflater();
 	      inflater.inflate(R.menu.main, menu);
@@ -144,7 +200,7 @@ public class MainActivity extends ListActivity implements FetchDataListener {
 	    } 
 	
 	    /*****Menu******/
-	    @Override
+	  /*  @Override
 	    public boolean onOptionsItemSelected(MenuItem item) {
 	      switch (item.getItemId()) {
 	      case R.id.action_refresh:
@@ -155,10 +211,11 @@ public class MainActivity extends ListActivity implements FetchDataListener {
 	      	default:
             return super.onOptionsItemSelected(item);
 	       }
-	    } 
+	    } */
+	    
 	    
 	    /*********Reload des données**********/
-	    private class SyncData extends AsyncTask<String, Void, String> {
+	  /*  private class SyncData extends AsyncTask<String, Void, String> {
 	    	EtudiantAdapter adapter = new EtudiantAdapter(context, list_items);
 	        @Override
 	        protected void onPreExecute() {
@@ -174,11 +231,8 @@ public class MainActivity extends ListActivity implements FetchDataListener {
 	        protected String doInBackground(String... params) {
 	            try {
 	            	//Thread.sleep(3000);
-	            	
 	            	FetchDataTask loadData = new FetchDataTask(listener);
 	            	loadData.execute("http://10.0.2.2/etudiant.php");
-	            	//setListAdapter(adapter);
-	            	//adapter.notifyDataSetChanged();
 	            } 
 	            
 	            catch (Exception e) {
@@ -197,5 +251,5 @@ public class MainActivity extends ListActivity implements FetchDataListener {
 	            refreshMenuItem.setActionView(null);
 	           
 	        }
-	    };
+	    };*/
 }

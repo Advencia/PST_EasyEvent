@@ -111,7 +111,6 @@ public class EtudiantAdapter extends ArrayAdapter<Etudiant> {
 		    } 
 		}
 		
-		
 		public Filter getFilter() {
 		    if (filtreEtudiant == null){ Log.d("var2", "filtre ");
 		        filtreEtudiant = new EtudiantFilter();
