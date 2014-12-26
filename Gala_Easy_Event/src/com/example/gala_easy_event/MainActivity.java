@@ -90,7 +90,7 @@ public class MainActivity extends ListActivity implements FetchDataListener {
 	        });
 	        
 	        /*********Supprimer un item**********/
-	     /*   OnItemLongClickListener itemLongListener = new OnItemLongClickListener() {
+	        OnItemLongClickListener itemLongListener = new OnItemLongClickListener() {
 	            @Override
 	            public boolean onItemLongClick(AdapterView<?> parent, View v, int position, long rowid) {
 	            	object_selected = (Etudiant) parent.getItemAtPosition(position);
@@ -123,7 +123,7 @@ public class MainActivity extends ListActivity implements FetchDataListener {
 	                return true;
 	            }
 	        };
-	        getListView().setOnItemLongClickListener(itemLongListener);*/
+	        getListView().setOnItemLongClickListener(itemLongListener);
 	        
 	        /************************************/
 	       ListView lv = getListView();
