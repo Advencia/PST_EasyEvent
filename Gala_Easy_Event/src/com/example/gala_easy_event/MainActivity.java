@@ -40,6 +40,7 @@ public class MainActivity extends ListActivity implements FetchDataListener {
      FetchDataListener listener;
      EtudiantAdapter adapter;
      String msg;
+     String email;
      private Etudiant object_selected;
      
 	    @Override
@@ -90,7 +91,7 @@ public class MainActivity extends ListActivity implements FetchDataListener {
 	        });
 	        
 	        /*********Supprimer un item**********/
-	        OnItemLongClickListener itemLongListener = new OnItemLongClickListener() {
+	    /*    OnItemLongClickListener itemLongListener = new OnItemLongClickListener() {
 	            @Override
 	            public boolean onItemLongClick(AdapterView<?> parent, View v, int position, long rowid) {
 	            	object_selected = (Etudiant) parent.getItemAtPosition(position);
@@ -124,35 +125,30 @@ public class MainActivity extends ListActivity implements FetchDataListener {
 	            }
 	        };
 	        getListView().setOnItemLongClickListener(itemLongListener);
-	        
-	        /************************************/
-	       ListView lv = getListView();
+	        */
+	    /****************Suppression clic simple********************/
+	        ListView lv = getListView();
 	        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-	            @Override
-	            public void onItemClick(AdapterView<?> av, View v, int pos, long id) {
-	            	object_selected = (Etudiant) av.getItemAtPosition(pos);
-	            	object_selected.getEmail();
-	                onClickDoSomething(v);
-	            }
-	            
+	        	@Override
+	        	public void onItemClick(AdapterView<?> av, View v, int pos, long id) {
+	        		object_selected = (Etudiant) av.getItemAtPosition(pos);
+	        		email = object_selected.getEmail();	        		
+	        		onClickDoSomething(v);
+	        	}
 	        });
 	        
-	}	    
-	    
-	    /******CLick on item********/	    
+	    }  
+	        
 	    public void onClickDoSomething(View view) {
-	    	//deleteView();
 	    	//adapter.remove(object_selected);
             //adapter.notifyDataSetChanged();
-            
-           //suppression serveur
-            
-            //String email = object_selected.setEmail(email); //on récupère l'email pr faire correspondre a la db ds le php
-            deleteView();
+            //deleteView();
+	    	DeleteDataTask delete = new DeleteDataTask(object_selected, email);
+	    	delete.execute();
             Toast.makeText(getApplicationContext()," has been removed", Toast.LENGTH_SHORT).show();
-	    	}	    
+	    	}	        
 	    
-	    /*********************/
+	    /*************************************/
 	    private void initView() {
 	        // show progress dialog
 	        dialog = ProgressDialog.show(this, "", "Loading...");	         
@@ -167,7 +163,7 @@ public class MainActivity extends ListActivity implements FetchDataListener {
 	        task.execute(url);
 	    }
 	    private void deleteView() {
-	    	DeleteDataTask delete = new DeleteDataTask(object_selected);
+	    	DeleteDataTask delete = new DeleteDataTask(object_selected, email);
 	        delete.execute("http://10.0.2.2/delete.php");
 	    	Toast toast = Toast.makeText(MainActivity.this, "suppression réussi", Toast.LENGTH_LONG);
 	        toast.show();
@@ -192,6 +188,7 @@ public class MainActivity extends ListActivity implements FetchDataListener {
 	        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();       
 	    }
 	    
+	    /******************Refresh button functions*******************/
 	 /*   @Override
 	    public boolean onCreateOptionsMenu(Menu menu) {
 	      MenuInflater inflater = getMenuInflater();
