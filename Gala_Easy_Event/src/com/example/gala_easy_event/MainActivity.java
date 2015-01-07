@@ -1,9 +1,8 @@
 package com.example.gala_easy_event;
 
 import java.io.InterruptedIOException;
+import java.util.ArrayList;
 import java.util.List;
-
-
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
@@ -58,7 +57,6 @@ public class MainActivity extends ListActivity implements FetchDataListener {
 	            public void onRefresh() {
 	            	refreshView();
 	                swipeContain.setRefreshing(false);
-	                Log.d("var1", "swipe");
 	            } 
 	        });
 	        // Configure the refreshing colors
@@ -69,13 +67,23 @@ public class MainActivity extends ListActivity implements FetchDataListener {
 	    
 	         
 		    /****Barre de recherche *****/
+	        final ListView lv = (ListView) findViewById(android.R.id.list);
 		    EditText editTxt = (EditText) findViewById(R.id.editTxt);
 	        editTxt.addTextChangedListener(new TextWatcher() {
 	            final EtudiantAdapter adp = new EtudiantAdapter(context, list_items);
 	            @Override
 	            public void onTextChanged(CharSequence s, int start, int before, int count) {
-	                adp.getFilter().filter(s.toString()); 
-	                Log.d("var", "liste filtre");
+	            	 int textlength = s.length();
+		               ArrayList<Etudiant> tempArrayList = new ArrayList<Etudiant>();
+		               for(Etudiant c: list_items){
+		                  if (textlength <= c.getNom().length()) {
+		                     if (c.getNom().toLowerCase().contains(s.toString().toLowerCase())) {
+		                        tempArrayList.add(c);
+		                     }
+		                  }
+		               }
+		               adapter = new EtudiantAdapter(context, tempArrayList);
+		               lv.setAdapter(adapter);
 	            }
 	             
 	            @Override
@@ -127,16 +135,16 @@ public class MainActivity extends ListActivity implements FetchDataListener {
 	        getListView().setOnItemLongClickListener(itemLongListener);
 	        */
 	    /****************Suppression clic simple********************/
-	        ListView lv = getListView();
-	        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+	     ListView liste = getListView();
+	        liste.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 	        	@Override
 	        	public void onItemClick(AdapterView<?> av, View v, int pos, long id) {
 	        		object_selected = (Etudiant) av.getItemAtPosition(pos);
 	        		email = object_selected.getEmail();	        		
 	        		onClickDoSomething(v);
+	        		Log.d("supp", object_selected.getEmail());
 	        	}
-	        });
-	        
+	        });	        
 	    }  
 	        
 	    public void onClickDoSomething(View view) {
@@ -145,6 +153,7 @@ public class MainActivity extends ListActivity implements FetchDataListener {
             //deleteView();
 	    	DeleteDataTask delete = new DeleteDataTask(object_selected, email);
 	    	delete.execute();
+	    	
             Toast.makeText(getApplicationContext()," has been removed", Toast.LENGTH_SHORT).show();
 	    	}	        
 	    

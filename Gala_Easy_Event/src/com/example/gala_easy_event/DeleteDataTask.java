@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import android.os.AsyncTask;
@@ -12,8 +12,7 @@ import android.os.AsyncTask;
 public class DeleteDataTask extends AsyncTask<String, Void, String>{
     private String msg;
     private final Etudiant etudiant;
-	
-    
+	   
     public DeleteDataTask(Etudiant etudiant, String email) {
     	this.etudiant = etudiant;
     }
@@ -27,10 +26,10 @@ public class DeleteDataTask extends AsyncTask<String, Void, String>{
 	            try {	            	
 	                // create http connection
 	                HttpClient client = new DefaultHttpClient();
-	                HttpGet httpget = new HttpGet(url);
+	                HttpPost httppost = new HttpPost(url);
 	                 
 	                // connect
-	                HttpResponse response = client.execute(httpget);
+	                HttpResponse response = client.execute(httppost);
 	               
 	            }
 	            catch(IOException e){
