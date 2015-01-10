@@ -1,13 +1,28 @@
 package com.example.gala_easy_event;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.InterruptedIOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONObject;
+
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle; 
 import android.os.Handler;
@@ -39,8 +54,14 @@ public class MainActivity extends ListActivity implements FetchDataListener {
      FetchDataListener listener;
      EtudiantAdapter adapter;
      String msg;
+     String nom;
+     String prenom;
      String email;
+     String prevente;
      private Etudiant object_selected;
+	private InputStream is;
+	private String result;
+	private int code;
      
 	    @Override
 	    protected void onCreate(Bundle savedInstanceState) {
@@ -135,27 +156,97 @@ public class MainActivity extends ListActivity implements FetchDataListener {
 	        getListView().setOnItemLongClickListener(itemLongListener);
 	        */
 	    /****************Suppression clic simple********************/
-	     ListView liste = getListView();
+	     final ListView liste = getListView();
+	     liste.setAdapter(adapter);
 	        liste.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 	        	@Override
-	        	public void onItemClick(AdapterView<?> av, View v, int pos, long id) {
+	        	public void onItemClick(AdapterView<?> av, View v, final int pos, long id) {
 	        		object_selected = (Etudiant) av.getItemAtPosition(pos);
-	        		email = object_selected.getEmail();	        		
-	        		onClickDoSomething(v);
-	        		Log.d("supp", object_selected.getEmail());
+	        		email = object_selected.getEmail();	
+	        		nom = object_selected.getNom();
+	        		prenom = object_selected.getPrenom();
+	        		prevente = object_selected.getPrevente();
+	        		
+	        		AlertDialog.Builder builder = new AlertDialog.Builder(context);
+	                builder.setMessage("supprimer cet étudiant ?");
+	                builder.setCancelable(false);	    
+	                builder.setPositiveButton("Oui", new DialogInterface.OnClickListener() {	                    
+	                    @Override
+	                    public void onClick(DialogInterface dialog, int which) {
+	        		
+	                    	Thread thread = new Thread(new Runnable(){
+	                    		@Override
+	                    		public void run() {
+	                    			ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();        		       	 
+	                    			nameValuePairs.add(new BasicNameValuePair("email",email));	        			    	
+	                    			try	{
+	                    				HttpClient httpclient = new DefaultHttpClient();
+	                    				HttpPost httppost = new HttpPost("http://10.0.2.2/delete.php");
+	                    				httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+	                    				HttpResponse response = httpclient.execute(httppost); 
+	                    				HttpEntity entity = response.getEntity();
+	                    				is = entity.getContent();
+	                    				Log.e("pass 1", "connection success ");
+	                    			}
+	                    			catch(Exception e){
+	                    				Log.e("Fail 1", e.toString());
+	                    				Toast.makeText(getApplicationContext(), "Invalid IP Address",
+	                    						Toast.LENGTH_LONG).show();
+	                    			}     
+	                    			
+	                    			try{
+	        			            	BufferedReader reader = new BufferedReader(new InputStreamReader(is,"iso-8859-1"),8);
+	        			            	StringBuilder sb = new StringBuilder();
+	        			            	String line;
+	        							
+	        			            	while ((line = reader.readLine()) != null){
+	        								sb.append(line + "\n");
+	        							}
+	        			            	is.close();
+	        			            	result = sb.toString();
+	        			            	Log.e("pass 2", "connection success ");
+	                    			}
+	                    			catch(Exception e){
+	                    				Log.e("Fail 2", e.toString());
+	                    			}     
+	        			       
+	                    			try {
+	                    				JSONObject json_data = new JSONObject(result);
+	                    				code=(json_data.getInt("code"));
+	                    			}
+	                    			catch(Exception e){
+	                    				Log.e("Fail 3", e.toString());
+	                    			}	        		    
+	                    		}
+	                    	});
+	        		thread.start(); 
+	        		
+	                    }
+	        		//delete(email);
+	        		//DeleteDataTask delete = new DeleteDataTask(object_selected, email);
+	    	    	//delete.execute();
+	    	    	//Toast.makeText(getApplicationContext(),"etudiant supprimé", Toast.LENGTH_SHORT).show();
+	        	});
+	                
+	            builder.setNegativeButton("Non", new DialogInterface.OnClickListener() {
+	            	@Override
+	                public void onClick(DialogInterface dialog, int which) {
+	            		dialog.cancel();
+	                }
+	            });
+	            
+	            builder.setNeutralButton("Modifier", new DialogInterface.OnClickListener() {				
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						final Intent intent = new Intent(MainActivity.this, Form_update.class);
+						startActivity(intent);														
+					}
+				});
+	            builder.show();
 	        	}
-	        });	        
+	        });	       
 	    }  
-	        
-	    public void onClickDoSomething(View view) {
-	    	//adapter.remove(object_selected);
-            //adapter.notifyDataSetChanged();
-            //deleteView();
-	    	DeleteDataTask delete = new DeleteDataTask(object_selected, email);
-	    	delete.execute();
-	    	
-            Toast.makeText(getApplicationContext()," has been removed", Toast.LENGTH_SHORT).show();
-	    	}	        
+	                      
 	    
 	    /*************************************/
 	    private void initView() {
@@ -173,7 +264,7 @@ public class MainActivity extends ListActivity implements FetchDataListener {
 	    }
 	    private void deleteView() {
 	    	DeleteDataTask delete = new DeleteDataTask(object_selected, email);
-	        delete.execute("http://10.0.2.2/delete.php");
+	        delete.execute("http://10.0.2.2/delete_etudiant.php");
 	    	Toast toast = Toast.makeText(MainActivity.this, "suppression réussi", Toast.LENGTH_LONG);
 	        toast.show();
 	    }
@@ -197,6 +288,7 @@ public class MainActivity extends ListActivity implements FetchDataListener {
 	        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();       
 	    }
 	    
+	   
 	    /******************Refresh button functions*******************/
 	 /*   @Override
 	    public boolean onCreateOptionsMenu(Menu menu) {

@@ -76,7 +76,7 @@ public class FetchDataTask extends AsyncTask<String, Void, String>{
                 app.setPrenom(json.getString("prenom"));
                 app.setNom(json.getString("nom"));
                 app.setEmail(json.getString("email")); 
-                app.setPrevente(json.getString("type_prevente"));
+                app.setPrevente(json.getString("prevente"));
                  
                 // add the app to apps list
                 apps.add(app);

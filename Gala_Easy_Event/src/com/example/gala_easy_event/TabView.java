@@ -20,8 +20,8 @@ public class TabView extends TabActivity {
                 .setContent(new Intent(this, MainActivity.class)));
 
         tabHost.addTab(tabHost.newTabSpec("tab2")
-                .setIndicator("Stats")
+                .setIndicator("")
                 .setContent(new Intent(this, AddEtudiant.class)));
-                 
+        //tabHost.getTabWidget().setBackgroundResource(R.drawable.stats); 
     }
 }

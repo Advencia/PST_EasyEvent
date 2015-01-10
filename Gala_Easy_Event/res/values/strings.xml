@@ -7,4 +7,10 @@
 	<string name="filtre">Recherche</string>
 	<string name="settings">otpions</string>
 	<string name="Refresh">Reload</string>
+	<string name="Nom">Nom</string>
+	<string name="Prenom">Prenom</string>
+	<string name="Email">Email</string>
+	<string name="Prevente">Prevente</string>
+	<string name="modifier">Modifier</string>
+	<string name="retour">Retour</string>
 </resources>
