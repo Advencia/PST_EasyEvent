@@ -219,8 +219,7 @@ public class MainActivity extends ListActivity implements FetchDataListener {
 	                    			}	        		    
 	                    		}
 	                    	});
-	        		thread.start(); 
-	        		
+	        		thread.start(); 	        		
 	                    }
 	        		//delete(email);
 	        		//DeleteDataTask delete = new DeleteDataTask(object_selected, email);
@@ -239,6 +238,10 @@ public class MainActivity extends ListActivity implements FetchDataListener {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						final Intent intent = new Intent(MainActivity.this, Form_update.class);
+						intent.putExtra("firstname", prenom);
+						intent.putExtra("name", nom);
+						intent.putExtra("adress_mail", email);
+						intent.putExtra("ticket", prevente);
 						startActivity(intent);														
 					}
 				});

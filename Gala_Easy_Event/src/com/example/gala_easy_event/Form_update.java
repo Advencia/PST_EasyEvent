@@ -29,32 +29,46 @@ public class Form_update extends Activity{
 	String nom;
 	String email;
 	String prevente;
-		private InputStream is;
-		private String result;
-		private int code;
-	 @Override
+	String firstname;
+	String name;
+	String adress_mail;
+	String ticket;
+	private InputStream is;
+	private String result;
+	private int code;
+		@Override
 	    public void onCreate(Bundle savedInstanceState) {
 	        super.onCreate(savedInstanceState);       
 	        setContentView(R.layout.form_update);  
-	        
+	        //recuperation des données de l'etudiant sur lequel on a clické
+	        Intent i = getIntent();
+	        name = i.getStringExtra("name");
+	        firstname = i.getStringExtra("firstname");
+	        adress_mail = i.getStringExtra("adress_mail");
+	        ticket = i.getStringExtra("ticket");
+
 	        //instanciation des boutons
 	        Button bouton_modif = (Button) findViewById(R.id.bouton_modif);
 	        bouton_modif.setOnClickListener(myhandler1);
 			Button bouton_retour = (Button) findViewById(R.id.bouton_retour);
 			bouton_retour.setOnClickListener(myhandler2);
 			
-	        //recuperation des données ecrites dans le edittext
+	        //affichage des données recupérées dans l'activity + recuperation du texte ecrit dans les edittext
 	        EditText edit_prenom = (EditText)findViewById(R.id.edit_prenom);
+	        edit_prenom.setText(firstname);
 			prenom = edit_prenom.getText().toString();					 
 			EditText edit_nom = (EditText)findViewById(R.id.edit_nom);
+			edit_nom.setText(name);
 			nom = edit_nom.getText().toString();
 			EditText edit_email = (EditText)findViewById(R.id.edit_email);
+			edit_email.setText(adress_mail);
 			email = edit_email.getText().toString();		
 			EditText edit_prevente = (EditText)findViewById(R.id.edit_prevente);
-			prevente = edit_prevente.getText().toString();		
+			edit_prevente.setText(ticket);
+			prevente = edit_prevente.getText().toString();							
 	 	}
 	 
-		//click sur le bouton lance le processus de modification sur serveur
+		//click sur le bouton Modifier lance le processus de modification sur serveur
 	 	View.OnClickListener myhandler1 = new View.OnClickListener() {
 		    public void onClick(View v) {
 		    	Thread thread = new Thread(new Runnable(){
@@ -100,14 +114,12 @@ public class Form_update extends Activity{
         				JSONObject json_data = new JSONObject(result);
         				code=(json_data.getInt("code"));
         				Log.e("pass 3", "connection success ");
-        				if(code==1)
-        	        	{
-        				Toast.makeText(getBaseContext(), "Update Successfully",
+        				if(code==1){
+        				Toast.makeText(getBaseContext(), "Mise à jour OK",
         					Toast.LENGTH_SHORT).show();
         	        	}
-        	        	else
-        	        	{
-        				Toast.makeText(getBaseContext(), "Sorry, Try Again",
+        	        	else{
+        				Toast.makeText(getBaseContext(), "Réessayé",
         					Toast.LENGTH_LONG).show();
         	        	}
         			}
@@ -122,7 +134,7 @@ public class Form_update extends Activity{
 		    }
 	  };
 	  
-	  //click sur bouton retour relance activity avec liste
+	  //click sur bouton retour relance l'activity avec liste
 	  View.OnClickListener myhandler2 = new View.OnClickListener() {
 		    public void onClick(View v) {
 		    	final Intent intent = new Intent(Form_update.this, TabView.class);
