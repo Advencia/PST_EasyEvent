@@ -13,4 +13,7 @@
 	<string name="Prevente">Prevente</string>
 	<string name="modifier">Modifier</string>
 	<string name="retour">Retour</string>
+	<string name="titre_form">Fomulaire</string>
+	<string name="form_button">Enregistrer</string>
+	
 </resources>

@@ -23,5 +23,10 @@ public class TabView extends TabActivity {
                 .setIndicator("Stats")
                 .setContent(new Intent(this, AddEtudiant.class)));
         //tabHost.getTabWidget().setBackgroundResource(R.drawable.stats); 
+        
+        tabHost.addTab(tabHost.newTabSpec("tab3")
+                .setIndicator("Formulaire")
+                .setContent(new Intent(this, Form.class)));
+
     }
 }

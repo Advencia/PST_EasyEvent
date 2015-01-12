@@ -28,6 +28,8 @@
             android:label="@string/app_name"></activity>
          <activity android:name=".Form_update"
             android:label="@string/app_name"></activity>
+         <activity android:name=".Form"
+            android:label="@string/app_name"></activity>
     </application>
 
 </manifest>
