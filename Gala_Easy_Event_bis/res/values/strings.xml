@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Gala_Easy_Event</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+	<string name="filtre">Recherche</string>
+	<string name="settings">otpions</string>
+	<string name="Refresh">Reload</string>
+	<string name="Nom">Nom</string>
+	<string name="Prenom">Prenom</string>
+	<string name="Email">Email</string>
+	<string name="Prevente">Prevente</string>
+	<string name="modifier">Modifier</string>
+	<string name="retour">Retour</string>
+	<string name="titre_form">Fomulaire</string>
+	<string name="form_button">Enregistrer</string>
+	<string name="titre_stat">Statistique</string>
+	<string name="vente">Type de vente</string>
+	<string name="nombre">Nombre de vente</string>
+	<string name="Simple">Simple</string>
+	<string name="Bouteille">Bouteille</string>
+	<string name="Vip">Vip</string>
+	
+ 
+	
+</resources>
