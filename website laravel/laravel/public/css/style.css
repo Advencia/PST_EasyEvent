@@ -1,0 +1,23 @@
+body {
+    font-family: Helvertica, ARial, sans-serif;
+    font-size: 15px;
+    padding: 20px 0;
+    
+    background-image:url(header.jpg);
+}
+
+.container {
+	width: 400px;
+	max-width: 300px;
+	margin: 170 auto;
+	background: #ffffff;
+	border: 1px solid #cccccc;
+	padding: 20px;
+	border-radius: 4px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+}
+ 
+form input[type=checkbox] {
+	display: inline ;
+}
