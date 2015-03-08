@@ -7,13 +7,7 @@
 	$con = mysql_connect($host,$uname,$pwd,$db) or die("connection failed");
 	mysql_select_db($db,$con) or die("db selection failed");
 	 
-	$prenom=$_REQUEST['prenom'];
-	$nom=$_REQUEST['nom'];
-	$email=$_REQUEST['email'];
-	$prevente=$_REQUEST['prevente'];
-	$flag['code']=0;
-	 
-	if($r=mysql_query("UPDATE etudiant SET prenom='$prenom',nom = '$nom',email='$email',prevente='$prevente' WHERE email ='$email'",$con))
+	if($r=mysql_query("UPDATE `statistiques` SET `simple`=(select count(`prevente`) from `etudiant` where `prevente`="simple"),`bouteille`=(select count(`prevente`) from `etudiant` where `prevente`="bouteille"),`vip`=(select count(`prevente`) from `etudiant` where `prevente`="vip")",$con))
 	{
 		$flag['code']=1;
 	}

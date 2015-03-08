@@ -11,10 +11,10 @@ $prenom=$_REQUEST['prenom'];
 $nom=$_REQUEST['nom'];
 $email=$_REQUEST['email'];
 $prevente=$_REQUEST['prevente'];
-
+$valid="non";
 $flag['code']=0;
 
-if($r=mysql_query("insert into etudiant values('$prenom','$nom','$email','$prevente') ",$con))
+if($r=mysql_query("insert into etudiant (`nom`,`prenom`,`email`,`prevente`,`validation`)values('$prenom','$nom','$email','$prevente', '$valid') ",$con))
 {
 	$flag['code']=1;
 	echo"hi";

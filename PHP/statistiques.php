@@ -13,7 +13,8 @@ if(mysqli_connect_errno($con)) {
 }
 
 // query the application data
-$sql = "SELECT * FROM etudiant ORDER By nom";
+
+$sql = "SELECT * FROM statistiques";
 $result = mysqli_query($con, $sql);
  
 // an array to save the application data
