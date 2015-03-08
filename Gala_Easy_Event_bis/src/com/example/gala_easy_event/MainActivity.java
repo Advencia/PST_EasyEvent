@@ -120,28 +120,7 @@ public class MainActivity extends ListActivity implements FetchDataListener {
 	            	
 	            }
 	        });
-	        
-	        /************check box**********/
-	       // int pos = lv.getCheckedItemPosition(); 
-	       // CheckBox checkBox = (CheckBox)findViewById(pos);
-	       // if (checkBox.isChecked()) {
-	        //	Toast.makeText(getApplicationContext(), "check",Toast.LENGTH_LONG).show();
-	        //}
-	        
-	        /* final CheckBox validation = (CheckBox)//findViewById(R.id.checkbox);
-	        public void MyHandler(View v) {
-	    		CheckBox cb = (CheckBox) v;
-	    		//on récupère la position à l'aide du tag défini dans la classe MyListAdapter
-	    		int position = Integer.parseInt(cb.getTag().toString());
-
-	    		//On change la couleur
-	    		if (cb.isChecked()) {
-	    			Toast.makeText(getApplicationContext(), "check",Toast.LENGTH_LONG).show();
-	    		} else {
-	    			
-	    		}
-	    	}
-	           */     	
+	             	
 
 	    /****************Suppression clic simple********************/
 	        
@@ -242,6 +221,11 @@ public class MainActivity extends ListActivity implements FetchDataListener {
 	    	ValidCheck valide = new ValidCheck(email);
 	    	valide.execute();
         }
+	    
+	    public void checkboxCanceled(String email){
+	    	CancelCheck cancel = new CancelCheck(email);
+	    	cancel.execute();
+	    }
 
 	    /************************************/
 	    private void initView() {
@@ -258,12 +242,12 @@ public class MainActivity extends ListActivity implements FetchDataListener {
 	        task.execute(url);
 	    }
 	    
-	    private void deleteView() {
+	  /*  private void deleteView() {
 	    	DeleteDataTask delete = new DeleteDataTask(object_selected, email);
 	        delete.execute("http://10.0.2.2/delete_etudiant.php");
 	    	Toast toast = Toast.makeText(MainActivity.this, "suppression réussi", Toast.LENGTH_LONG);
 	        toast.show();
-	    }
+	    }*/
 	     
 	    @Override
 	    public void onFetchComplete(List<Etudiant> data) {

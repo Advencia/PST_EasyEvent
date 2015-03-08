@@ -51,7 +51,6 @@ public class EtudiantAdapter extends ArrayAdapter<Etudiant> {
 			TextView email = (TextView) v.findViewById(R.id.email);
 			TextView prevente = (TextView) v.findViewById(R.id.prevente);
 			CheckBox validation = (CheckBox) v.findViewById(R.id.checkbox);
-			//validation.setTag (position); 
 			
 			if (prenom != null) {
 				prenom.setText(app.getPrenom());
@@ -84,10 +83,12 @@ public class EtudiantAdapter extends ArrayAdapter<Etudiant> {
 	            public void onCheckedChanged(CompoundButton button, boolean checked) {
 	                // Cast it so we can access the public functions
 	                MainActivity myActivity = (MainActivity) getContext();
-
+	                String email = app.getEmail();
 	                if (checked){
-	                	String email = app.getEmail();
 	                    myActivity.checkboxSelected(email);	                    
+	                }
+	                else{
+	                	myActivity.checkboxCanceled(email);
 	                }
 	            }
 	        });

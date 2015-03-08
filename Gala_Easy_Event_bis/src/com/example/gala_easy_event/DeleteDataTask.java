@@ -20,7 +20,7 @@ public class DeleteDataTask extends AsyncTask<String, Void, String>{
 	
     public DeleteDataTask(Etudiant etudiant, String email) {
     	this.etudiant = etudiant;
-    	this.email = etudiant.getEmail();//email
+    	this.email = etudiant.getEmail();
     }
     
     
