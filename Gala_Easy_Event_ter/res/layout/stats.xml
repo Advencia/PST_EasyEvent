@@ -1,0 +1,116 @@
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tableLayout1"
+        xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:shrinkColumns="*"
+    android:stretchColumns="*" 
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <TableRow
+        android:id="@+id/tableRow1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_span="6"
+            android:gravity="center_horizontal"
+            android:text="Statistique"
+            android:textColor="#D473D4"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/tableRow2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+    
+        <TextView
+            android:id="@+id/TextView21"
+            android:gravity="center"
+           android:hint="@string/vente"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+             android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/TextView22"
+            android:gravity="center"
+            android:hint="@string/nombre"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:textSize="18sp">
+        </TextView>
+              
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/tableRow3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/textView31"
+            android:hint="@string/Simple"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold" >
+        </TextView>
+
+        <TextView
+            android:id="@+id/textView32"
+            android:gravity="center_horizontal"
+            android:textColor="#D473D4" >
+        </TextView>
+
+       
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/tableRow4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/textView41"
+            android:hint="@string/Bouteille"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold" >
+        </TextView>
+
+        <TextView
+            android:id="@+id/textView42"
+            android:gravity="center_horizontal"
+            android:textColor="#D473D4" >
+        </TextView>
+
+        
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/tableRow5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/textView51"
+            android:hint="@string/Vip"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold" >
+        </TextView>
+
+          <TextView
+            android:id="@+id/textView52"
+            android:gravity="center_horizontal"
+            android:textColor="#D473D4" >
+        </TextView>
+
+    </TableRow>
+
+</TableLayout>
