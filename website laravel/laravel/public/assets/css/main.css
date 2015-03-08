@@ -1,0 +1,38 @@
+body {
+    font-family: 'Imprima', sans-serif;
+    background-color: #F5F5F5;
+}
+.container {
+   margin-top: 20px;
+}
+.jumbotron, .navbar, .comment {
+    box-shadow: 2px 2px 6px #bbb;
+}
+.comment {
+    border:thin;
+    border-style:solid;
+    border-color:#bbb;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    background-color:#ddd;
+}
+textarea {
+    width:98%;
+}
+.nav li a {
+    font-size:large;
+}
+.nav li a:not(.actif):hover {
+    background-color:#eee !important;
+    box-shadow: 2px 2px 14px #555;
+}
+.nav li a.actif {
+    background-color:#888 !important;
+    color:#fff !important;
+    box-shadow: 2px 2px 14px #555;
+}
+footer {
+    margin-top: 20px;
+    text-align: center;
+}
